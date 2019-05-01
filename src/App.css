@@ -1,24 +1,27 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
+body {
+  font-family: "Poiret One", cursive !important;
   color: white;
+  font-size: 18px;
+  letter-spacing: 1px;
 }
 
-.App-intro {
-  font-size: large;
+h1,
+h2 {
+  font-family: "Kalam", cursive;
+  padding-top: 2vh;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.menu {
+  background-color: #0080b7;
+  height: 100%;
+  min-height: 100vh;
+}
+
+.app-tasks {
+  background-color: #ffe066;
+  margin: 0;
+  text-align: center;
+  color: black;
+  height: 100%;
+  min-height: 100vh;
 }
