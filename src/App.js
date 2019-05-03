@@ -2,307 +2,96 @@ import React, { Component } from "react";
 import "./App.css";
 import { Jumbotron, Button, Form, Row } from "react-bootstrap";
 
+import AddTask from "./components/addTask";
+import Tasks from "./components/tasks";
+import Summary from "./components/summary";
+
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      task: {
-        piorty: "1",
-        description: "",
-        status: "1",
-        key: 0
-      },
-
-      tasks: { pressing: [], important: [], openLoops: [] }
+      render: "",
+      buttonPressed: true,
+      buttonPressed1: false,
+      buttonPressed2: false
     };
   }
 
-  handleChange = e => {
+  handleClick = (compName, e) => {
     this.setState({
-      task: {
-        ...this.state.task,
-        description: e.target.value
-      }
+      render: compName
     });
   };
 
-  setPriority = e => {
-    this.setState({
-      task: {
-        ...this.state.task,
-        piorty: e.target.value
-      }
-    });
-  };
-
-  setStatus = e => {
-    this.setState({
-      task: {
-        ...this.state.task,
-        status: e.target.value
-      }
-    });
-  };
-
-  setTask = e => {
-    if (this.state.task.status == 1) {
-      let newPressing = [...this.state.tasks.pressing];
-      let newTask = { ...this.state.task };
-
-      newPressing.push(newTask);
-      newPressing.sort((a, b) => a.piorty.localeCompare(b.piorty));
-
-      this.setState({
-        tasks: {
-          important: this.state.tasks.important,
-          pressing: newPressing,
-          openLoops: this.state.tasks.openLoops
-        }
-      });
-    } else if (this.state.task.status == 2) {
-      let newImportant = [...this.state.tasks.important];
-      let newTask = { ...this.state.task };
-
-      newImportant.push(newTask);
-      newImportant.sort((a, b) => a.piorty.localeCompare(b.piorty));
-
-      this.setState({
-        tasks: {
-          important: newImportant,
-          pressing: this.state.tasks.pressing,
-          openLoops: this.state.tasks.openLoops
-        }
-      });
-    } else if (this.state.task.status == 3) {
-      let newOpenLoops = [...this.state.tasks.openLoops];
-      let newTask = { ...this.state.task };
-
-      newOpenLoops.push(newTask);
-      newOpenLoops.sort((a, b) => a.piorty.localeCompare(b.piorty));
-
-      this.setState({
-        tasks: {
-          important: this.state.tasks.important,
-          pressing: this.state.tasks.pressing,
-          openLoops: newOpenLoops
-        }
-      });
+  _renderSubComp() {
+    switch (this.state.render) {
+      case "AddTask":
+        return <AddTask />;
+      case "Tasks":
+        return <Tasks />;
+      case "Summary":
+        return <Summary />;
     }
+  }
 
-    this.setState({
-      task: {
-        description: "",
-        key: this.state.task.key + 1,
-        status: this.state.task.status,
-        piorty: this.state.task.piorty
-      }
-    });
+  onClick = event => {
+    this.handleClick("AddTask");
+    (this.buttonPress = () => {
+      this.setState({
+        buttonPressed: true,
+        buttonPressed1: false,
+        buttonPressed2: false
+      });
+    })();
   };
-
-  startFunctions = () => {
-    this.setTask();
+  onClick1 = event => {
+    this.handleClick("Tasks");
+    (this.buttonPress1 = () => {
+      this.setState({
+        buttonPressed: false,
+        buttonPressed1: true,
+        buttonPressed2: false
+      });
+    })();
   };
-
-  madeTask = task => {
-    if (task.status == 1) {
-      let newPressingList = (this.state.tasks.pressing || []).filter(item => {
-        return item.key !== task.key;
-      });
-
+  onClick2 = event => {
+    this.handleClick("Summary");
+    (this.buttonPress2 = () => {
       this.setState({
-        tasks: {
-          important: this.state.tasks.important,
-          pressing: newPressingList,
-          openLoops: this.state.tasks.openLoops
-        }
+        buttonPressed: false,
+        buttonPressed1: false,
+        buttonPressed2: true
       });
-    } else if (task.status == 2) {
-      let newImportantList = (this.state.tasks.important || []).filter(item => {
-        return item.key !== task.key;
-      });
-
-      this.setState({
-        tasks: {
-          important: newImportantList,
-          pressing: this.state.tasks.pressing,
-          openLoops: this.state.tasks.openLoops
-        }
-      });
-    } else if (task.status == 3) {
-      let newOpenLoops = (this.state.tasks.openLoops || []).filter(item => {
-        return item.key !== task.key;
-      });
-
-      this.setState({
-        tasks: {
-          important: this.state.tasks.important,
-          pressing: this.state.tasks.pressing,
-          openLoops: newOpenLoops
-        }
-      });
-    }
+    })();
   };
 
   render() {
     return (
       <div className="App">
-        <div className="menu ">
-          <center>
-            <h1>Rzeczy do zrobienia</h1>
-            <p>
-              Wszystkie sprawy o których, myślisz zużywają Towją energię, więc
-              nie ma sensu trzymać ich w głowie. Zanotuj je!
-            </p>
-          </center>
-
-          <Form className="menu-form">
-            <Form.Group
-              className="col-md-12"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label>
-                <h2>Krok 1. Zadanie do wykonania.</h2>
-              </Form.Label>
-              <Form.Control
-                as="textarea"
-                placeholder="Jeżeli zrobienie Twojego zadania zajmuje mniej niż dwie minuty nie zapisuj tego. Zrób to od razu!"
-                rows="3"
-                value={this.state.task.description}
-                onChange={this.handleChange}
-              />
-            </Form.Group>
-
-            <Form.Group className="col-md-12">
-              <Form.Label>
-                <h2>Krok 2. Określ charakter Twojego zadania. </h2>
-              </Form.Label>
-              <Form.Control
-                as="select"
-                value={this.state.value}
-                onChange={this.setStatus}
+        <div className="menu container-fluid">
+          <Form className="menu-form col-xs-6 mx-auto">
+            {this.state.render === "" ? <addTask /> : this._renderSubComp()}
+            <div className="menu-form-buttons">
+              <Button
+                onClick={this.onClick}
+                className={"menu-form-buttons-add"}
               >
-                <option value={1}>
-                  Pilne - "wykonaj telefon do...", "ćwicz przez 15 minut".
-                </option>
-                <option value={2}>
-                  Ważne - "chce zdrowo się odżywiać", "chcę nauczyć się... "
-                </option>
-                <option value={3}>
-                  Otwarte pętle - "chciałbym polecieć do Australii", "chciałbym
-                  porozmawiać z..".
-                </option>
-              </Form.Control>
-            </Form.Group>
-
-            <Form.Group className="col-md-12">
-              <Form.Label>
-                <h2>Krok 3. Ustaw piorytet</h2>
-              </Form.Label>
-              <Form.Control
-                as="select"
-                value={this.state.value}
-                onChange={this.setPriority}
+                <h4>Dodaj</h4>
+              </Button>
+              <Button
+                onClick={this.onClick1}
+                className={"menu-form-buttons-list"}
               >
-                <option value={1}>1 - bardzo istotne</option>
-                <option value={2}>2</option>
-                <option value={3}>3</option>
-                <option value={4}>4</option>
-                <option value={5}>5 - mało istotne</option>
-              </Form.Control>
-            </Form.Group>
-
-            <Form.Group className="col-md-12">
-              <Form.Label>
-                <h2>Krok 4. Dodaj Zadanie</h2>
-              </Form.Label>
-              <div>
-                <Button
-                  className="col-md-12"
-                  variant="light"
-                  onClick={this.startFunctions}
-                >
-                  Dodaj zadanie
-                </Button>
-              </div>
-            </Form.Group>
+                <h4>Zadania ({})</h4>
+              </Button>
+              <Button
+                onClick={this.onClick2}
+                className={"menu-form-buttons-summary"}
+              >
+                <h4>Podsumowanie</h4>
+              </Button>
+            </div>
           </Form>
-        </div>
-
-        <div className="app-tasks ">
-          <h1>Lista Zadań</h1>
-          <Row className="container-fluid">
-            <div className="col-md-4">
-              <h2>Pilne</h2>
-              {this.state.tasks.pressing.map(item => {
-                return (
-                  <div>
-                    <Row>
-                      <div className="col-md-12">
-                        {item.description + " " + item.piorty}
-                      </div>
-                    </Row>
-                    <Row>
-                      <div className="col-md-12">
-                        {" "}
-                        <Button onClick={() => this.madeTask(item)}>
-                          Zrobione
-                        </Button>
-                        <Button>Nie zrobione</Button>
-                      </div>
-                    </Row>
-                  </div>
-                );
-              })}
-            </div>
-            <div className="col-md-4">
-              <h2>Ważne</h2>
-              {this.state.tasks.important.map(item => {
-                return (
-                  <div>
-                    <Row>
-                      <div className="col-md-12">
-                        {item.description + " " + item.piorty}
-                      </div>
-                    </Row>
-                    <Row>
-                      <div className="col-md-12">
-                        {" "}
-                        <Button onClick={() => this.madeTask(item)}>
-                          Zrobione
-                        </Button>
-                        <Button>Nie zrobione</Button>
-                      </div>
-                    </Row>
-                  </div>
-                );
-              })}
-            </div>
-
-            <div className="col-md-4">
-              {" "}
-              <h2>Otwarte Pętle</h2>
-              {this.state.tasks.openLoops.map(item => {
-                return (
-                  <div>
-                    <Row>
-                      <div className="col-md-12">
-                        {item.description + " " + item.piorty}
-                      </div>
-                    </Row>
-                    <Row>
-                      <div className="col-md-12">
-                        {" "}
-                        <Button onClick={() => this.madeTask(item)}>
-                          Zrobione
-                        </Button>
-                        <Button>Nie zrobione</Button>
-                      </div>
-                    </Row>
-                  </div>
-                );
-              })}
-            </div>
-          </Row>
         </div>
       </div>
     );

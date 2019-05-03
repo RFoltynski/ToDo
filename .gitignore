@@ -8,6 +8,7 @@
 
 # production
 /build
+src/fbase.js
 
 # misc
 .DS_Store
