@@ -1,5 +1,28 @@
 .menu-tasks {
+  height: 100%;
   min-height: 460px;
   background-color: #f86624;
   border-radius: 4px 4px 0 0;
+  display: flex;
+  justify-content: space-around;
+}
+.menu-tasks-task {
+  border-bottom: 2px dotted white;
+  display: flex;
+}
+.menu-tasks-column {
+  padding: 5px;
+
+  width: 33%;
+}
+.menu-tasks-button {
+  background-color: transparent;
+  border: transparent;
+}
+.menu-tasks-button-img {
+  width: 25px;
+  height: 25px;
+}
+.cross {
+  margin-left: auto;
 }

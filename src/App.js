@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import { Jumbotron, Button, Form, Row } from "react-bootstrap";
-
+import { fbase } from "./fbase";
 import AddTask from "./components/addTask";
 import Tasks from "./components/tasks";
 import Summary from "./components/summary";
@@ -11,10 +11,22 @@ class App extends Component {
     super();
     this.state = {
       render: "",
-      buttonPressed: true,
-      buttonPressed1: false,
-      buttonPressed2: false
+      buttonPressed: false,
+      buttonPressed1: true,
+      buttonPressed2: false,
+      tasks: []
     };
+  }
+
+  componentDidMount() {
+    this.ref = fbase.syncState("tasks", {
+      context: this,
+      state: "tasks"
+    });
+  }
+
+  componentWillUnmount() {
+    fbase.removeBinding(this.ref);
   }
 
   handleClick = (compName, e) => {
@@ -35,6 +47,7 @@ class App extends Component {
   }
 
   onClick = event => {
+    event.preventDefault();
     this.handleClick("AddTask");
     (this.buttonPress = () => {
       this.setState({
@@ -45,6 +58,7 @@ class App extends Component {
     })();
   };
   onClick1 = event => {
+    event.preventDefault();
     this.handleClick("Tasks");
     (this.buttonPress1 = () => {
       this.setState({
@@ -55,6 +69,7 @@ class App extends Component {
     })();
   };
   onClick2 = event => {
+    event.preventDefault();
     this.handleClick("Summary");
     (this.buttonPress2 = () => {
       this.setState({
@@ -70,26 +85,38 @@ class App extends Component {
       <div className="App">
         <div className="menu container-fluid">
           <Form className="menu-form col-xs-6 mx-auto">
-            {this.state.render === "" ? <addTask /> : this._renderSubComp()}
+            {this.state.render === "" ? <Tasks /> : this._renderSubComp()}
             <div className="menu-form-buttons">
-              <Button
+              <button
                 onClick={this.onClick}
-                className={"menu-form-buttons-add"}
+                className={
+                  this.state.buttonPressed
+                    ? "menu-form-buttons-add-pressed"
+                    : "menu-form-buttons-add"
+                }
               >
                 <h4>Dodaj</h4>
-              </Button>
-              <Button
+              </button>
+              <button
                 onClick={this.onClick1}
-                className={"menu-form-buttons-list"}
+                className={
+                  this.state.buttonPressed1
+                    ? "menu-form-buttons-list-pressed"
+                    : "menu-form-buttons-list"
+                }
               >
-                <h4>Zadania ({})</h4>
-              </Button>
-              <Button
+                <h4>Zadania ({this.state.tasks.length})</h4>
+              </button>
+              <button
                 onClick={this.onClick2}
-                className={"menu-form-buttons-summary"}
+                className={
+                  this.state.buttonPressed2
+                    ? "menu-form-buttons-summary-pressed"
+                    : "menu-form-buttons-summary"
+                }
               >
                 <h4>Podsumowanie</h4>
-              </Button>
+              </button>
             </div>
           </Form>
         </div>

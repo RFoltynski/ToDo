@@ -11,7 +11,7 @@ class AddTask extends React.Component {
         piorty: "1",
         description: "",
         status: "1",
-        key: 0
+        key: Math.floor(Math.random() * 1000 + 1) + 1
       },
 
       tasks: []
@@ -46,10 +46,14 @@ class AddTask extends React.Component {
   };
 
   componentDidMount() {
-    fbase.syncState("tasks", {
+    this.ref = fbase.syncState("tasks", {
       context: this,
       state: "tasks"
     });
+  }
+
+  componentWillUnmount() {
+    fbase.removeBinding(this.ref);
   }
 
   setTask = e => {
@@ -57,15 +61,18 @@ class AddTask extends React.Component {
     let newTask = { ...this.state.task };
 
     newTasks.push(newTask);
+    newTasks.sort((a, b) => a.piorty.localeCompare(b.piorty));
+
+    console.log(newTasks);
 
     this.setState({
-      tasks: [...this.state.tasks, newTask]
+      tasks: newTasks
     });
 
     this.setState({
       task: {
         description: "",
-        key: this.state.task.key + 1,
+        key: this.state.task.key + 10,
         status: this.state.task.status,
         piorty: this.state.task.piorty
       }
@@ -73,19 +80,20 @@ class AddTask extends React.Component {
   };
 
   startFunctions = () => {
+    event.preventDefault();
     this.setTask();
   };
 
   render() {
     return (
-      <div className="menu container-fluid">
+      <div className="container-fluid">
         <Form.Group
           className="col-md-11 mx-auto "
           controlId="exampleForm.ControlTextarea1"
         >
           <Form.Label>
             <div className="menu-form-heading ">
-              <h2>Zadanie</h2> <button className="menu-form-info">i </button>
+              <h2>Zadanie</h2>
             </div>
           </Form.Label>
           <Form.Control
@@ -100,7 +108,7 @@ class AddTask extends React.Component {
         <Form.Group className="col-md-11 mx-auto">
           <Form.Label>
             <div className="menu-form-heading ">
-              <h2>Znaczenie</h2> <button className="menu-form-info">i </button>
+              <h2>Znaczenie</h2>
             </div>
           </Form.Label>
           <Form.Control
@@ -124,7 +132,7 @@ class AddTask extends React.Component {
         <Form.Group className="col-md-11 mx-auto">
           <Form.Label>
             <div className="menu-form-heading ">
-              <h2>Piorytet</h2> <button className="menu-form-info">i </button>
+              <h2>Piorytet</h2>
             </div>
           </Form.Label>
           <Form.Control
@@ -143,9 +151,12 @@ class AddTask extends React.Component {
         <Form.Group className="col-md-11 mx-auto">
           <Form.Label />
 
-          <Button variant="success" onClick={this.startFunctions}>
+          <button
+            className={"menu-form-buttons-addTask"}
+            onClick={this.startFunctions}
+          >
             <h3>Dodaj</h3>
-          </Button>
+          </button>
         </Form.Group>
       </div>
     );
