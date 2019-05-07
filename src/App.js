@@ -84,40 +84,40 @@ class App extends Component {
     return (
       <div className="App">
         <div className="menu container-fluid">
+          <div className="menu-form-buttons">
+            <button
+              onClick={this.onClick}
+              className={
+                this.state.buttonPressed
+                  ? "menu-form-buttons-add-pressed"
+                  : "menu-form-buttons-add"
+              }
+            >
+              <h4>Dodaj</h4>
+            </button>
+            <button
+              onClick={this.onClick1}
+              className={
+                this.state.buttonPressed1
+                  ? "menu-form-buttons-list-pressed"
+                  : "menu-form-buttons-list"
+              }
+            >
+              <h4>Zadania ({this.state.tasks.length})</h4>
+            </button>
+            <button
+              onClick={this.onClick2}
+              className={
+                this.state.buttonPressed2
+                  ? "menu-form-buttons-summary-pressed"
+                  : "menu-form-buttons-summary"
+              }
+            >
+              <h4>Podsumowanie</h4>
+            </button>
+          </div>
           <Form className="menu-form col-xs-6 mx-auto">
             {this.state.render === "" ? <Tasks /> : this._renderSubComp()}
-            <div className="menu-form-buttons">
-              <button
-                onClick={this.onClick}
-                className={
-                  this.state.buttonPressed
-                    ? "menu-form-buttons-add-pressed"
-                    : "menu-form-buttons-add"
-                }
-              >
-                <h4>Dodaj</h4>
-              </button>
-              <button
-                onClick={this.onClick1}
-                className={
-                  this.state.buttonPressed1
-                    ? "menu-form-buttons-list-pressed"
-                    : "menu-form-buttons-list"
-                }
-              >
-                <h4>Zadania ({this.state.tasks.length})</h4>
-              </button>
-              <button
-                onClick={this.onClick2}
-                className={
-                  this.state.buttonPressed2
-                    ? "menu-form-buttons-summary-pressed"
-                    : "menu-form-buttons-summary"
-                }
-              >
-                <h4>Podsumowanie</h4>
-              </button>
-            </div>
           </Form>
         </div>
       </div>

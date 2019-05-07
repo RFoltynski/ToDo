@@ -1,5 +1,25 @@
 .menu-summary {
+  height: 100%;
   min-height: 460px;
   background-color: #03933f;
-  border-radius: 4px 4px 0 0;
+
+  display: flex;
+}
+.menu-summary-task {
+  border-bottom: 2px dotted white;
+  display: flex;
+}
+.clean-summmary {
+  height: 40px;
+  margin: auto auto 15px auto;
+  background-color: #2191fb;
+  border: #2191fb;
+  border-radius: 4px;
+  color: white;
+}
+
+.clean-summmary:hover {
+  background-color: #1778d3;
+  border-top: #1778d3;
+  border-radius: 4px;
 }
