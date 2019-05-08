@@ -50,3 +50,24 @@
   border-top: #1778d3;
   border-radius: 4px;
 }
+.clean-tasks {
+  height: 40px;
+  margin: auto auto 15px auto;
+  background-color: #fc1b1b;
+  border: #fc1b1b;
+  border-radius: 4px;
+  color: white;
+}
+
+.clean-tasks:hover {
+  background-color: #f20909;
+  border-radius: 4px;
+}
+@media only screen and (max-width: 600px) {
+  .menu-tasks {
+    flex-direction: row;
+  }
+  .menu-tasks-column {
+    width: 100%;
+  }
+}

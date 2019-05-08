@@ -12,14 +12,13 @@
 .clean-summmary {
   height: 40px;
   margin: auto auto 15px auto;
-  background-color: #2191fb;
-  border: #2191fb;
+  background-color: #fc1b1b;
+  border: #fc1b1b;
   border-radius: 4px;
   color: white;
 }
 
 .clean-summmary:hover {
-  background-color: #1778d3;
-  border-top: #1778d3;
+  background-color: #f20909;
   border-radius: 4px;
 }

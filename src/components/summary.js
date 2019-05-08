@@ -26,6 +26,7 @@ class Summary extends React.Component {
   }
 
   cleanSummary = () => {
+    event.preventDefault();
     this.setState({
       done: [],
       unDone: []
@@ -37,32 +38,36 @@ class Summary extends React.Component {
       <div className="container-fluid">
         <div className="row menu-summary">
           <div className="col-md-6">
-            <h2>Wykonane zadania:</h2>
+            <h2>Wykonane zadania</h2>
             {Array.isArray(this.state.done) ? (
-              this.state.done.map(item => {
+              this.state.done.map((item, index) => {
                 return (
                   <div className="menu-summary-task">
-                    <h4>{item.description}</h4>
+                    {index + 1}. {item.description}
                   </div>
                 );
               })
             ) : (
-              <p> </p>
+              <p> ...to dobry powód do odpoczynku. </p>
             )}
           </div>
           <div className="col-md-6">
-            <h2>Nie wykonane zadania:</h2>
+            <h2>Niewykonane zadania</h2>
             {Array.isArray(this.state.unDone) ? (
-              this.state.unDone.map(item => {
+              this.state.unDone.map((item, index) => {
                 return (
                   <div className="menu-summary-task">
-                    zadanie: {item.description} (piorytet: {item.piorty}) nie
-                    wykonane z powodu, bo {item.reason}
+                    {index + 1}. {item.description + " "}
+                    {item.reason === " " ? "" : "powód: " + item.reason}
                   </div>
                 );
               })
             ) : (
-              <p> </p>
+              <p>
+                {" "}
+                ...zdarzają się wszystkim, ale nie wszyscy wyciągają z nich
+                wnioski.
+              </p>
             )}
           </div>
           <button className="clean-summmary" onClick={this.cleanSummary}>

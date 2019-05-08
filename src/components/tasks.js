@@ -51,7 +51,7 @@ class Tasks extends React.Component {
       return task.key !== item.key;
     });
     let itemWithReason = item;
-    itemWithReason.reason = this.state.reason;
+    itemWithReason.reason = this.state.reason || " ";
 
     this.setState({
       unDone: [...this.state.unDone, itemWithReason],
@@ -68,6 +68,13 @@ class Tasks extends React.Component {
   handleChange = e => {
     this.setState({
       reason: e.target.value
+    });
+  };
+
+  cleanTasks = () => {
+    event.preventDefault();
+    this.setState({
+      tasks: []
     });
   };
 
@@ -92,7 +99,11 @@ class Tasks extends React.Component {
                 }
               })
             ) : (
-              <p> </p>
+              <p>
+                ...sprawy, wymagają natychmiastowej uwagi. Są do zrobienia JUŻ.
+                <br />
+                np.: wykonanie telefonu.
+              </p>
             )}
           </div>
           <div className="menu-tasks-column">
@@ -112,11 +123,15 @@ class Tasks extends React.Component {
                 }
               })
             ) : (
-              <p> </p>
+              <p>
+                {" "}
+                ...zadania nie koniecznie są pilne, lecz ich zaniedbywanie
+                oddala od wyznaczonych celów. <br /> np.: nauka nowego języka.
+              </p>
             )}
           </div>
           <div className="menu-tasks-column">
-            <h2>Otwarte Pętle</h2>
+            <h2>Odłożone</h2>
             {Array.isArray(this.state.tasks) ? (
               this.state.tasks.map(item => {
                 if (item.status == 3) {
@@ -132,9 +147,17 @@ class Tasks extends React.Component {
                 }
               })
             ) : (
-              <p> </p>
+              <p>
+                ...sprawy, zuzywają energię, więc nie warto ich trzymać w
+                głowie.
+                <br />
+                np.: wyjazd do Australii.
+              </p>
             )}
           </div>
+          <button className="clean-tasks" onClick={this.cleanTasks}>
+            Wyczyść listę zadań
+          </button>
         </div>
       </div>
     );
@@ -172,7 +195,7 @@ class TasksElements extends React.Component {
     return (
       <div>
         <div className="menu-tasks-task">
-          {this.props.item.description}
+          {this.props.item.piorty + ". " + this.props.item.description}
           <button
             className="menu-tasks-button cross"
             onClick={() => this.crossClick()}
@@ -199,7 +222,7 @@ class TasksElements extends React.Component {
             className="menu-form-buttons-mark"
             onClick={this.startFunctions}
           >
-            Oznacz jako nie wykonane
+            Oznacz jako "NIEWYKONANE"
           </button>
         </div>
       </div>

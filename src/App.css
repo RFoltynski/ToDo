@@ -9,7 +9,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(290deg, #31cea6, #1d7887);
+  background: linear-gradient(290deg, #31cea6, #adcad6);
   background-size: 120% 100%;
 }
 
@@ -34,28 +34,28 @@ button:focus {
 
 .menu-form-buttons-add {
   flex: 1;
-  background-color: #fccf2d;
-  border: #fccf2d;
+  background-color: #086788;
+  border: #086788;
   border-radius: 5px 5px 0 0;
   color: white;
 }
 .menu-form-buttons-add:hover {
-  background-color: #fcc911;
-  border-top: #fcc911;
+  background-color: #064e66;
+  border-top: #064e66;
   border-radius: 5px 5px 0 0;
 }
 .menu-form-buttons-add-pressed {
   flex: 1;
-  background-color: #fccf2d;
-  border: #fccf2d;
+  background-color: #086788;
+  border: #086788;
   border-radius: 5px 5px 0 0;
   cursor: default;
   color: white;
 }
 .menu-form-buttons-add-pressed:hover {
   flex: 1;
-  background-color: #fccf2d;
-  border: #fccf2d;
+  background-color: #086788;
+  border: #086788;
   border-radius: 5px 5px 0 0;
   cursor: default;
 }

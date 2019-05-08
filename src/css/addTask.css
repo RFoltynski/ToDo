@@ -1,6 +1,6 @@
 .menu-form {
   min-height: 460px;
-  background-color: #fccf2d;
+  background-color: #086788;
 }
 .menu-form-heading {
   width: 100%;
@@ -20,6 +20,15 @@
   min-height: 100vh;
 }
 
+.add-tasks-validation {
+  display: none;
+}
+
+.add-tasks-validation-on {
+  display: flex;
+  font-size: 20px;
+}
+
 .menu-form-buttons-addTask {
   flex: 1;
   background-color: #2191fb;
@@ -28,7 +37,7 @@
   color: white;
 }
 .menu-form-buttons-addTask:hover {
-  background-color: #1778d3;
-  border-top: #1778d3;
+  background-color: #086788;
+  border-top: #086788;
   border-radius: 4px;
 }

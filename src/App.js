@@ -103,7 +103,13 @@ class App extends Component {
                   : "menu-form-buttons-list"
               }
             >
-              <h4>Zadania ({this.state.tasks.length})</h4>
+              <h4>
+                Zadania (
+                {this.state.tasks.length === undefined
+                  ? "0"
+                  : this.state.tasks.length}
+                )
+              </h4>
             </button>
             <button
               onClick={this.onClick2}

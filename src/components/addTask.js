@@ -13,7 +13,7 @@ class AddTask extends React.Component {
         status: "1",
         key: Math.floor(Math.random() * 1000 + 1) + 1
       },
-
+      validation: false,
       tasks: []
     };
   }
@@ -57,6 +57,12 @@ class AddTask extends React.Component {
   }
 
   setTask = e => {
+    if (this.state.task.description.length === 0) {
+      this.setState({
+        validation: true
+      });
+      return;
+    }
     let newTasks = [...this.state.tasks];
     let newTask = { ...this.state.task };
 
@@ -66,7 +72,8 @@ class AddTask extends React.Component {
     console.log(newTasks);
 
     this.setState({
-      tasks: newTasks
+      tasks: newTasks,
+      validation: false
     });
 
     this.setState({
@@ -85,6 +92,10 @@ class AddTask extends React.Component {
   };
 
   render() {
+    let validation = ["add-tasks-validation"];
+    if (this.state.validation) {
+      validation.push("add-tasks-validation-on");
+    }
     return (
       <div className="container-fluid">
         <Form.Group
@@ -103,6 +114,7 @@ class AddTask extends React.Component {
             value={this.state.task.description}
             onChange={this.handleChange}
           />
+          <div className={validation.join(" ")}>Dodaj treść zadania.</div>
         </Form.Group>
 
         <Form.Group className="col-md-11 mx-auto">
@@ -117,14 +129,14 @@ class AddTask extends React.Component {
             onChange={this.setStatus}
           >
             <option value={1}>
-              Pilne - "wykonaj telefon do...", "ćwicz przez 15 minut".
+              Pilne - kryzysy, sprawy naglące, zadania z deadlinem.
             </option>
             <option value={2}>
-              Ważne - "chce zdrowo się odżywiać", "chcę nauczyć się... "
+              Ważne - planowanie, szukanie nowych możliwości, aktywność
+              fizyczna.
             </option>
             <option value={3}>
-              Otwarte pętle - "chciałbym polecieć do Australii", "chciałbym
-              porozmawiać z..".
+              Odłożone - sprawy, z którymi nie wiadomo jak zacząć.
             </option>
           </Form.Control>
         </Form.Group>
