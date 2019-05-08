@@ -1,6 +1,6 @@
 Aplikacja znajduje się pod adresem: https://todolist-a7a5f.firebaseapp.com
 
-Aplikacja stworzona w Reacie.js z użyciem Bootstrap'a oraz Firebase'a.
+Aplikacja stworzona w React.js z użyciem Bootstrap'a oraz Firebase'a.
 
 Funkcje aplikacji:
 
